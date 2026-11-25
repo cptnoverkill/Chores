@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Family Chore Chart</title>
+<!-- version 3 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -288,7 +289,7 @@ if(!FIREBASE_CONFIG.apiKey){
     if(coll==="members")members=list.sort((a,b)=>String(a.createdAt).localeCompare(String(b.createdAt)));else tasks=list;
     if(!snap.metadata.fromCache){got[coll]=true;if(got.members&&got.tasks){clearTimeout(timer);$("status").textContent="Synced for the family"}}
     render();
-   },err=>{clearTimeout(timer);console.error(err);$("status").textContent=err.code==="permission-denied"?"Blocked, check Firebase rules":"Sync stopped, reload the page"});
+   },err=>{clearTimeout(timer);console.error(err);$("status").textContent=err.code==="permission-denied"?`Blocked (code ${fam.length} chars, project ${FIREBASE_CONFIG.projectId})`:"Sync stopped, reload the page"});
   sub("members");sub("tasks");
  }catch(e){console.error(e);mode="local";$("linkTools").hidden=true;$("linkNote").textContent="Couldn't reach Firebase. Check the settings pasted into the file.";$("status").textContent="Couldn't connect, saving on this device"}
 }
